@@ -11,7 +11,7 @@ class TableViewCell: UITableViewCell {
     
     let cityNameLabel: UILabel = {
         let cityNameLabel = UILabel()
-        cityNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        cityNameLabel.font = UIFont.boldSystemFont(ofSize: 12)
         cityNameLabel.textAlignment = .left
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return cityNameLabel
@@ -19,7 +19,7 @@ class TableViewCell: UITableViewCell {
     
     let conditionLabel: UILabel = {
         let conditionLabel = UILabel()
-        conditionLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        conditionLabel.font = UIFont.boldSystemFont(ofSize: 10)
         conditionLabel.textAlignment = .right
         conditionLabel.translatesAutoresizingMaskIntoConstraints = false
         return conditionLabel
@@ -27,7 +27,7 @@ class TableViewCell: UITableViewCell {
     
     let tempLabel: UILabel = {
         let tempLabel = UILabel()
-        tempLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        tempLabel.font = UIFont.boldSystemFont(ofSize: 12)
         tempLabel.textAlignment = .left
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
         return tempLabel
@@ -64,4 +64,11 @@ class TableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func configure(weather: Weather)  {
+        self.cityNameLabel.text = weather.name
+        self.conditionLabel.text = weather.conditionString
+        self.tempLabel.text = weather.temperatureString
+    }
+    
 }
