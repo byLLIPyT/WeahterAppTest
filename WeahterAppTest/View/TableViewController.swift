@@ -8,7 +8,7 @@
 import UIKit
 
 class TableViewController: UITableViewController {
-
+    
     var emptyCity = Weather()
     var citiesArray = [Weather]()
     var filteredCitiesArray = [Weather]()
@@ -30,7 +30,7 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         let addButton = UIButton(type: .custom)
         addButton.setTitle("+", for: .normal)
         addButton.setTitleColor(.blue, for: .normal)
@@ -39,7 +39,7 @@ class TableViewController: UITableViewController {
         let item1 = UIBarButtonItem(customView: addButton)
         self.navigationItem.setRightBarButtonItems([item1], animated: true)
         
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: Settings.cellIdentifier.rawValue)
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: CellIdentifier.cellIdentifier)
         
         if citiesArray.isEmpty {
             citiesArray = Array(repeating: emptyCity, count: cities.count)
@@ -54,7 +54,7 @@ class TableViewController: UITableViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         
     }
-   
+    
     @objc func addNewCity(_ sender: Any) {
         
         alertPlusCity(name: "City", placeholder: "Enter city name") { (city) in
@@ -84,10 +84,10 @@ class TableViewController: UITableViewController {
         }
         return citiesArray.count
     }
-        
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Settings.cellIdentifier.rawValue, for: indexPath) as! TableViewCell
-                
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.cellIdentifier, for: indexPath) as! TableViewCell
+        
         var weather = Weather()
         if isFiltering {
             weather = filteredCitiesArray[indexPath.row]
@@ -119,7 +119,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let destination = DetailViewController()
         if self.isFiltering {
@@ -127,10 +127,8 @@ class TableViewController: UITableViewController {
         } else {
             destination.weatherModel = citiesArray[indexPath.row]
         }
-        
         navigationController?.pushViewController(destination, animated: true)
     }
-    
 }
 
 extension TableViewController: UISearchResultsUpdating {

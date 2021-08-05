@@ -9,12 +9,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    
     var weatherModel: Weather?
     
     let cityNameLabel: UILabel = {
         let cityNameLabel = UILabel()
         cityNameLabel.text = ""
+        cityNameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         cityNameLabel.textAlignment = .center
         cityNameLabel.textColor = .black
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ class DetailViewController: UIViewController {
     let pressureValueLabel: UILabel = {
         let pressureValueLabel = UILabel()
         pressureValueLabel.text = ""
-        pressureValueLabel.textAlignment = .center
+        pressureValueLabel.textAlignment = .right
         pressureValueLabel.textColor = .black
         pressureValueLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -55,7 +55,7 @@ class DetailViewController: UIViewController {
     let windSpeedValueLabel: UILabel = {
         let windSpeedValueLabel = UILabel()
         windSpeedValueLabel.text = ""
-        windSpeedValueLabel.textAlignment = .center
+        windSpeedValueLabel.textAlignment = .right
         windSpeedValueLabel.textColor = .black
         windSpeedValueLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -65,7 +65,7 @@ class DetailViewController: UIViewController {
     let minTempValueLabel: UILabel = {
         let minTempValueLabel = UILabel()
         minTempValueLabel.text = ""
-        minTempValueLabel.textAlignment = .center
+        minTempValueLabel.textAlignment = .right
         minTempValueLabel.textColor = .black
         minTempValueLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,18 +75,56 @@ class DetailViewController: UIViewController {
     let maxTempValueLabel: UILabel = {
         let maxTempValueLabel = UILabel()
         maxTempValueLabel.text = ""
-        maxTempValueLabel.textAlignment = .center
+        maxTempValueLabel.textAlignment = .right
         maxTempValueLabel.textColor = .black
         maxTempValueLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return maxTempValueLabel
     }()
     
+    let maxTempLabel: UILabel = {
+        let maxTempLabel = UILabel()
+        maxTempLabel.text = ""
+        maxTempLabel.textAlignment = .left
+        maxTempLabel.textColor = .black
+        maxTempLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return maxTempLabel
+    }()
+    
+    let minTempLabel: UILabel = {
+        let minTempLabel = UILabel()
+        minTempLabel.text = ""
+        minTempLabel.textAlignment = .left
+        minTempLabel.textColor = .black
+        minTempLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return minTempLabel
+    }()
+    
+    let pressureLabel: UILabel = {
+        let pressureLabel = UILabel()
+        pressureLabel.text = ""
+        pressureLabel.textAlignment = .left
+        pressureLabel.textColor = .black
+        pressureLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return pressureLabel
+    }()
+    
+    let windSpeedLabel: UILabel = {
+        let windSpeedLabel = UILabel()
+        windSpeedLabel.text = ""
+        windSpeedLabel.textAlignment = .left
+        windSpeedLabel.textColor = .black
+        windSpeedLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return windSpeedLabel
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
-        
         view.addSubview(cityNameLabel)
         view.addSubview(conditionLabel)
         view.addSubview(temperatureLabel)
@@ -94,24 +132,28 @@ class DetailViewController: UIViewController {
         view.addSubview(windSpeedValueLabel)
         view.addSubview(minTempValueLabel)
         view.addSubview(maxTempValueLabel)
+        view.addSubview(pressureLabel)
+        view.addSubview(windSpeedLabel)
+        view.addSubview(minTempLabel)
+        view.addSubview(maxTempLabel)
         
         let topStack = UIStackView(arrangedSubviews: [cityNameLabel, conditionLabel, temperatureLabel])
         
         topStack.distribution = .equalSpacing
         topStack.axis = .vertical
-        topStack.spacing = 2
+        topStack.spacing = 10
         topStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topStack)
         
-        let leftStack = UIStackView(arrangedSubviews: [pressureValueLabel, windSpeedValueLabel])
+        let leftStack = UIStackView(arrangedSubviews: [pressureLabel, windSpeedLabel, minTempLabel, maxTempLabel])
         
         leftStack.distribution = .equalSpacing
         leftStack.axis = .vertical
         leftStack.spacing = 2
         leftStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(leftStack)
-                
-        let rightStack = UIStackView(arrangedSubviews: [minTempValueLabel, maxTempValueLabel])
+        
+        let rightStack = UIStackView(arrangedSubviews: [pressureValueLabel, windSpeedValueLabel, minTempValueLabel, maxTempValueLabel])
         
         rightStack.distribution = .equalSpacing
         rightStack.axis = .vertical
@@ -133,43 +175,40 @@ class DetailViewController: UIViewController {
         totalStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(totalStack)
         
+        print(view.topAnchor)
         
-                        
         
         NSLayoutConstraint.activate([
             totalStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             totalStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            totalStack.heightAnchor.constraint(equalToConstant: 300),
-            totalStack.widthAnchor.constraint(equalToConstant: 300)
-            
-//            totalStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-//            totalStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-//            totalStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-//            totalStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
+            totalStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 150)
         ])
-        
         refreshLabels()
-        
-        
     }
     
     func refreshLabels() {
         cityNameLabel.text = weatherModel?.name
         conditionLabel.text = weatherModel?.conditionString
+        
+        pressureLabel.text = "Давление: "
+        windSpeedLabel.text = "Скорость ветра: "
+        minTempLabel.text = "Минимальная температура: "
+        maxTempLabel.text = "Максимальная температура: "
+        
         if let temp = weatherModel?.temperature {
-            temperatureLabel.text = "\(temp)"
+            temperatureLabel.text = "\(temp) °C"
         }
         if let pressureMm = weatherModel?.pressureMm {
-            pressureValueLabel.text = "\(pressureMm)"
+            pressureValueLabel.text = "\(pressureMm) мм.рт.с"
         }
         if let windSpeed = weatherModel?.windSpeed {
-            windSpeedValueLabel.text = "\(windSpeed)"
+            windSpeedValueLabel.text = "\(windSpeed) м/с"
         }
         if let tempMin = weatherModel?.tempMin {
-            minTempValueLabel.text = "\(tempMin)"
+            minTempValueLabel.text = "\(tempMin) °C"
         }
         if let tempMax = weatherModel?.tempMax {
-            maxTempValueLabel.text = "\(tempMax)"
+            maxTempValueLabel.text = "\(tempMax)°C"
         }
     }
 }

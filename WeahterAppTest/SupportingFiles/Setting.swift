@@ -6,7 +6,3 @@
 //
 import Foundation
 
-public enum Settings: String {
-    case cellIdentifier = "Cell"
-    case detailViewControllerIdentifier = "showDetail"
-}
