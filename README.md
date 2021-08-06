@@ -1,5 +1,4 @@
 # WeahterAppTest
-without storyboards
 
 Weather app with yandex API without storyboard
 
