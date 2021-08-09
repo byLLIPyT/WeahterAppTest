@@ -28,4 +28,17 @@ extension UIViewController {
         alert.addAction(alertCancel)
         present(alert, animated: true, completion: nil)
     }
+    
+    func showAlert(nameCity: String, success result: Bool) {
+        var message = ""
+        if result {
+            message = "City '\(nameCity)' added"
+        } else {
+            message = "City '\(nameCity)' not found"
+        }
+        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        let alertOk = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertOk)
+        present(alertController, animated: true, completion: nil)        
+    }
 }

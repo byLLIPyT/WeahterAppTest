@@ -35,26 +35,10 @@ class TableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         addSubview(cityNameLabel)
         addSubview(conditionLabel)
         addSubview(tempLabel)
-        
-        let stackView = UIStackView(arrangedSubviews: [cityNameLabel, conditionLabel, tempLabel])
-        stackView.distribution = .equalSpacing
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            stackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
-        ])
+        configureStack()
     }
     
     required init?(coder: NSCoder) {
@@ -71,4 +55,21 @@ class TableViewCell: UITableViewCell {
         self.tempLabel.text = weather.temperatureString
     }
     
+    private func configureStack() {
+        let stackView = UIStackView(arrangedSubviews: [cityNameLabel, conditionLabel, tempLabel])
+        stackView.distribution = .equalSpacing
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            stackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+        ])
+    }
 }
