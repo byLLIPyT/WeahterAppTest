@@ -40,9 +40,20 @@ struct Forecast: Decodable {
 
 struct Parts: Decodable {
     let day: Day
+    let night: Night
 }
 
 struct Day: Decodable {
+    let tempMin: Int?
+    let tempMax: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+    }
+}
+
+struct Night: Decodable {
     let tempMin: Int?
     let tempMax: Int?
     

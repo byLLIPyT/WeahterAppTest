@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftSVG
 
 class DetailViewController: UIViewController {
     
@@ -122,6 +123,12 @@ class DetailViewController: UIViewController {
         return windSpeedLabel
     }()
     
+    let imageCondition: UIView = {
+        let imageCondition = UIView()
+        imageCondition.translatesAutoresizingMaskIntoConstraints = false
+        return imageCondition
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -146,13 +153,34 @@ class DetailViewController: UIViewController {
     
     private func configureStacks() {
         let topStack = UIStackView(arrangedSubviews: [cityNameLabel, conditionLabel, temperatureLabel])
-        
+                
         topStack.distribution = .equalSpacing
         topStack.axis = .vertical
-        topStack.spacing = 10
+        topStack.spacing = 5
         topStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topStack)
         
+        NSLayoutConstraint.activate([
+            topStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            topStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+            topStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            topStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
+        ])
+        
+        let imageStack = UIStackView(arrangedSubviews: [imageCondition])
+        imageStack.distribution = .equalSpacing
+        imageStack.axis = .vertical
+        imageStack.spacing = 5
+        imageStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageStack)
+        
+        NSLayoutConstraint.activate([
+            imageStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageStack.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 10),
+            imageStack.widthAnchor.constraint(equalToConstant: 50),
+            imageStack.heightAnchor.constraint(equalToConstant: 50)
+        ])
+                        
         let leftStack = UIStackView(arrangedSubviews: [pressureLabel, windSpeedLabel, minTempLabel, maxTempLabel])
         
         leftStack.distribution = .equalSpacing
@@ -176,21 +204,25 @@ class DetailViewController: UIViewController {
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStack)
         
-        let totalStack = UIStackView(arrangedSubviews: [topStack, bottomStack])
-        totalStack.distribution = .equalSpacing
-        totalStack.axis = .vertical
-        totalStack.spacing = 2
-        totalStack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(totalStack)
-        
         NSLayoutConstraint.activate([
-            totalStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            totalStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            totalStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 150)
+            bottomStack.topAnchor.constraint(equalTo: imageStack.bottomAnchor, constant: 10),
+            bottomStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bottomStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            bottomStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
         ])
     }
     
     private func refreshLabels() {
+        if let weatherModelCode = weatherModel?.conditionCode {
+            let imageURL = URL(string: "https://yastatic.net/weather/i/icons/funky/dark/\(weatherModelCode).svg")
+            if let imageUrl = imageURL {
+                let weatherImage = UIView(SVGURL: imageUrl) { (image) in
+                    image.resizeToFit(self.imageCondition.bounds)
+                }
+                imageCondition.addSubview(weatherImage)
+            }
+        }
+        
         cityNameLabel.text = weatherModel?.name
         conditionLabel.text = weatherModel?.conditionString
         
