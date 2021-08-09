@@ -18,9 +18,7 @@
 		AB7BF1F126BC68FF003EDA97 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BF1F026BC68FF003EDA97 /* WeatherData.swift */; };
 		AB7BF1F426BC691F003EDA97 /* GetCitiesWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BF1F326BC691F003EDA97 /* GetCitiesWeather.swift */; };
 		AB7BF1F726BC692F003EDA97 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BF1F626BC692F003EDA97 /* Weather.swift */; };
-		AB7BF1FE26BC6956003EDA97 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BF1FD26BC6956003EDA97 /* Setting.swift */; };
 		AB7BF20126BC6965003EDA97 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BF20026BC6965003EDA97 /* Extensions.swift */; };
-		AB7BF20426BC697E003EDA97 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BF20326BC697E003EDA97 /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +35,7 @@
 		AB7BF1F026BC68FF003EDA97 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		AB7BF1F326BC691F003EDA97 /* GetCitiesWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCitiesWeather.swift; sourceTree = "<group>"; };
 		AB7BF1F626BC692F003EDA97 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		AB7BF1FD26BC6956003EDA97 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		AB7BF20026BC6965003EDA97 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		AB7BF20326BC697E003EDA97 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +103,6 @@
 			children = (
 				AB7BF1A526BC37F3003EDA97 /* AppDelegate.swift */,
 				AB7BF1DA26BC48A7003EDA97 /* Enums.swift */,
-				AB7BF1FD26BC6956003EDA97 /* Setting.swift */,
-				AB7BF20326BC697E003EDA97 /* Constant.swift */,
 				AB7BF1AE26BC37F6003EDA97 /* Assets.xcassets */,
 				AB7BF1B326BC37F6003EDA97 /* Info.plist */,
 			);
@@ -184,7 +178,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB7BF1FE26BC6956003EDA97 /* Setting.swift in Sources */,
 				AB7BF20126BC6965003EDA97 /* Extensions.swift in Sources */,
 				AB7BF1C426BC3A85003EDA97 /* TableViewCell.swift in Sources */,
 				AB7BF1DB26BC48A7003EDA97 /* Enums.swift in Sources */,
@@ -195,7 +188,6 @@
 				AB7BF1EE26BC68DD003EDA97 /* NetworkWeatherManager.swift in Sources */,
 				AB7BF1A626BC37F3003EDA97 /* AppDelegate.swift in Sources */,
 				AB7BF1DF26BC4DFB003EDA97 /* TableViewController.swift in Sources */,
-				AB7BF20426BC697E003EDA97 /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

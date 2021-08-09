@@ -70,5 +70,4 @@ class TableViewCell: UITableViewCell {
         self.conditionLabel.text = weather.conditionString
         self.tempLabel.text = weather.temperatureString
     }
-    
 }

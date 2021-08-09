@@ -7,9 +7,7 @@
 
 import Foundation
 
-enum CellIdentifier {   
-   static let weatherListCell = "WeatherListCell"
+enum CellIdentifier {
    static let cellIdentifier = "Cell"
-   static let detailViewControllerIdentifier = "showDetail"
 }
 

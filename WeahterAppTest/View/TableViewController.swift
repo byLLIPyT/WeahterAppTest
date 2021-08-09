@@ -12,7 +12,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
     var emptyCity = Weather()
     var citiesArray = [Weather]()
     var filteredCitiesArray = [Weather]()
-    var cities = ["Ставрополь","Екатеринбург"]//,"Тюмень","Краснодар","Новороссийск","Уфа","Пермь","Чита","Глазов","Омск"]
+    var cities = ["Ставрополь","Екатеринбург","Тюмень","Краснодар","Новороссийск","Уфа","Пермь","Чита","Глазов","Омск"]
     let networkWeatherManager = NetworkWeatherManager()
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -42,8 +42,9 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         alertPlusCity(name: "City", placeholder: "Enter city name") { (city) in
             getCoordinateFrom(city: city) { (coordinate, error) in
                 guard let _ = coordinate else {
-                    self.showAlert(nameCity: city)
+                    self.showAlert(nameCity: city, success: false)
                     return }
+                self.showAlert(nameCity: city, success: true)
                 self.cities.append(city)
                 self.citiesArray.append(self.emptyCity)
                 self.filteredCitiesArray.append(self.emptyCity)
@@ -79,6 +80,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         cell.configure(weather: weather)
         return cell
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completionHandler) in
