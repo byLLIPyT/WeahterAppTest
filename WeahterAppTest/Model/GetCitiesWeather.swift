@@ -16,7 +16,7 @@ func getCityWeather(citiesArray: [String], completionHandler: @escaping (Int, We
         getCoordinateFrom(city: item) { (coordinate, error) in
             guard let coordinate = coordinate, error == nil else { return }
             
-            networkManager.fetchWeahter(latitude: coordinate.latitude, longitude: coordinate.longitude) { (weather) in
+            networkManager.fetchWeather(latitude: coordinate.latitude, longitude: coordinate.longitude) { (weather) in
                 completionHandler(index, weather)
             }
         }

@@ -9,7 +9,7 @@ import Foundation
 
 struct NetworkWeatherManager {
     
-    func fetchWeahter(latitude: Double, longitude: Double, completionHandler: @escaping (Weather) -> Void) {
+    func fetchWeather(latitude: Double, longitude: Double, completionHandler: @escaping (Weather) -> Void) {
         let urlString = "https://api.weather.yandex.ru/v2/forecast?lat=\(latitude)&lon=\(longitude)"
         guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url, timeoutInterval: Double.infinity)
