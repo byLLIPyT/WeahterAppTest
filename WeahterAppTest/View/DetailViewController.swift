@@ -175,9 +175,6 @@ class DetailViewController: UIViewController {
         totalStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(totalStack)
         
-        print(view.topAnchor)
-        
-        
         NSLayoutConstraint.activate([
             totalStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             totalStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),

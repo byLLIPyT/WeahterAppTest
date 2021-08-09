@@ -15,7 +15,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
     var cities = ["Ставрополь","Екатеринбург"]//,"Тюмень","Краснодар","Новороссийск","Уфа","Пермь","Чита","Глазов","Омск"]
     let networkWeatherManager = NetworkWeatherManager()
     let searchController = UISearchController(searchResultsController: nil)
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,28 +30,28 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         self.navigationItem.setRightBarButtonItems([item1], animated: true)
         
         tableView.register(TableViewCell.self, forCellReuseIdentifier: CellIdentifier.cellIdentifier)
-        
-//        if citiesArray.isEmpty {
-//            citiesArray = Array(repeating: emptyCity, count: cities.count)
-//        }
         addCities()
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "find"
+        searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     @objc func addNewCity(_ sender: Any) {
-        
         alertPlusCity(name: "City", placeholder: "Enter city name") { (city) in
-            self.cities.append(city)
-            self.citiesArray.append(self.emptyCity)
-            self.filteredCitiesArray.append(self.emptyCity)
-            self.addCities()
+            getCoordinateFrom(city: city) { (coordinate, error) in
+                guard let _ = coordinate else {
+                    self.showAlert(nameCity: city)
+                    return }
+                self.cities.append(city)
+                self.citiesArray.append(self.emptyCity)
+                self.filteredCitiesArray.append(self.emptyCity)
+                self.addCities()
+            }
         }
     }
-        
+    
     func addCities() {
         if self.citiesArray.isEmpty {
             self.citiesArray = Array(repeating: emptyCity, count: self.cities.count)
@@ -110,22 +110,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         })
         tableView.reloadData()
     }
-}
-
-/*
-extension TableViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let text = searchController.searchBar.text {
-            filterContentForSearchText(text)
-        }
-    }
     
-    private func filterContentForSearchText(_ searchText: String) {
-        
-        filteredCitiesArray = citiesArray.filter {
-            $0.name.contains(searchText)
-        }
-        tableView.reloadData()
-    }
+    
 }
-*/
