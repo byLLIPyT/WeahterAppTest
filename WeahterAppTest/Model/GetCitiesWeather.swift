@@ -25,8 +25,7 @@ func getCityWeather(citiesArray: [String], completionHandler: @escaping (Int, We
 func checkCoordinate(city: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> ()) {
     CLGeocoder().geocodeAddressString(city) { (coord, error) in
         completion(coord?.first?.location?.coordinate, error)
-    }
-    
+    }    
 }
 
 func getCoordinateFrom(city: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> ()) {

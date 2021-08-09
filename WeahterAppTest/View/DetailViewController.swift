@@ -124,6 +124,12 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addSubviews()
+        configureStacks()
+        refreshLabels()
+    }
+    
+    private func addSubviews() {
         view.backgroundColor = .white
         view.addSubview(cityNameLabel)
         view.addSubview(conditionLabel)
@@ -136,7 +142,9 @@ class DetailViewController: UIViewController {
         view.addSubview(windSpeedLabel)
         view.addSubview(minTempLabel)
         view.addSubview(maxTempLabel)
-        
+    }
+    
+    private func configureStacks() {
         let topStack = UIStackView(arrangedSubviews: [cityNameLabel, conditionLabel, temperatureLabel])
         
         topStack.distribution = .equalSpacing
@@ -180,10 +188,9 @@ class DetailViewController: UIViewController {
             totalStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             totalStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 150)
         ])
-        refreshLabels()
     }
     
-    func refreshLabels() {
+    private func refreshLabels() {
         cityNameLabel.text = weatherModel?.name
         conditionLabel.text = weatherModel?.conditionString
         
@@ -207,5 +214,5 @@ class DetailViewController: UIViewController {
         if let tempMax = weatherModel?.tempMax {
             maxTempValueLabel.text = "\(tempMax)°C"
         }
-    }
+    }   
 }

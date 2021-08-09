@@ -18,24 +18,11 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         searchController.searchBar.delegate = self
-        
-        let addButton = UIButton(type: .custom)
-        addButton.setTitle("+", for: .normal)
-        addButton.setTitleColor(.blue, for: .normal)
-        addButton.addTarget(self, action: #selector(addNewCity), for: .touchUpInside)
-        
-        let item1 = UIBarButtonItem(customView: addButton)
-        self.navigationItem.setRightBarButtonItems([item1], animated: true)
-        
         tableView.register(TableViewCell.self, forCellReuseIdentifier: CellIdentifier.cellIdentifier)
         addCities()
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        navigationItem.hidesSearchBarWhenScrolling = false
+        configureSearchBar()
+        configureButton()
     }
     
     @objc func addNewCity(_ sender: Any) {
@@ -53,7 +40,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         }
     }
     
-    func addCities() {
+    private func addCities() {
         if self.citiesArray.isEmpty {
             self.citiesArray = Array(repeating: emptyCity, count: self.cities.count)
             self.filteredCitiesArray = self.citiesArray
@@ -68,6 +55,34 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         }
     }
     
+    private func configureButton() {
+        let addButton = UIButton(type: .custom)
+        addButton.setTitle("+", for: .normal)
+        addButton.setTitleColor(.blue, for: .normal)
+        addButton.addTarget(self, action: #selector(addNewCity), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: addButton)
+        self.navigationItem.setRightBarButtonItems([item1], animated: true)
+    }
+    
+    private func configureSearchBar() {
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    //MARK: SearchBar
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredCitiesArray = searchText.isEmpty ? citiesArray : citiesArray.filter({ (city) -> Bool in
+            return city.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        })
+        tableView.reloadData()
+    }   
+}
+//MARK: TableView DataSource
+extension TableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredCitiesArray.count
     }
@@ -80,8 +95,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         cell.configure(weather: weather)
         return cell
     }
-    
-    
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completionHandler) in
@@ -106,13 +119,4 @@ class TableViewController: UITableViewController, UISearchBarDelegate, UISearchC
         destination.weatherModel = filteredCitiesArray[indexPath.row]
         navigationController?.pushViewController(destination, animated: true)
     }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredCitiesArray = searchText.isEmpty ? citiesArray : citiesArray.filter({ (city) -> Bool in
-            return city.name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-        })
-        tableView.reloadData()
-    }
-    
-    
 }
